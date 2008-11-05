@@ -30,6 +30,7 @@ qpackagekit
 Summary:	qpackagekit - header files and development documentation
 Summary(pl.UTF-8):	qpackagekit - pliki nagłówkowe i dokumentacja do qpackagekit
 Group:		X11/Development/Libraries
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 This package contains header files and development documentation for
