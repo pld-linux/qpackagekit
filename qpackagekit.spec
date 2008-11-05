@@ -1,14 +1,23 @@
+
+%define		qtver	4.4.1
+
 Summary:	qpackagekit
 Summary(pl.UTF-8):	qpackagekit
 Name:		qpackagekit
 Version:	0.3.1
-Release:	0.1
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://maison.mymadcat.com/~madcat/qpackagekit/%{name}-%{version}.tar.gz
 # Source0-md5:	6d2a380ea59056b09cad68191cdde860
-URL:		http://
+BuildRequires:	QtCore-devel >= %{qtver}
+BuildRequires:	QtDBus-devel >= %{qtver}
+BuildRequires:	QtGui-devel >= %{qtver}
+BuildRequires:	cmake >= 2.6.1-2
 BuildRequires:	rpmbuild(macros) >= 1.129
+BuildRequires:	qt4-build >= %{qtver}
+BuildRequires:	qt4-qmake >= %{qtver}
+Requires(post,postun):	/sbin/ldconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -34,12 +43,11 @@ pisaniu własnych programów wykorzystujących qpackagekit.
 %setup -q
 
 %build
-export QTDIR=%{_prefix}
-mkdir build
+install -d build
 cd build
 %cmake \
-		-DCMAKE_INSTALL_PREFIX=%{_prefix} \
-		../
+	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
+	../
 %{__make}
 
 %install
@@ -51,17 +59,20 @@ rm -rf $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post	-p	/sbin/ldconfig
+%postun	-p	/sbin/ldconfig
+
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libpackagekit-qt.so.?
 %attr(755,root,root) %{_libdir}/libpackagekit-qt.so.*.*
-%dir %{_includedir}/packagekit-qt
-%{_includedir}/packagekit-qt/QPackageKit
+%attr(755,root,root) %ghost %{_libdir}/libpackagekit-qt.so.?
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libpackagekit-qt.so
+%dir %{_includedir}/packagekit-qt
+%{_includedir}/packagekit-qt/QPackageKit
 %{_includedir}/packagekit-qt/client.h
 %{_includedir}/packagekit-qt/package.h
 %{_includedir}/packagekit-qt/transaction.h
-%attr(755,root,root) %{_libdir}/libpackagekit-qt.so
 %{_datadir}/cmake/Modules/FindQPackageKit.cmake
