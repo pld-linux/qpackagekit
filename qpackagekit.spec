@@ -10,6 +10,7 @@ License:	GPL v2
 Group:		X11/Applications
 Source0:	http://maison.mymadcat.com/~madcat/qpackagekit/%{name}-%{version}.tar.gz
 # Source0-md5:	6d2a380ea59056b09cad68191cdde860
+BuildRequires:	PolicyKit-devel
 BuildRequires:	QtCore-devel >= %{qtver}
 BuildRequires:	QtDBus-devel >= %{qtver}
 BuildRequires:	QtGui-devel >= %{qtver}
