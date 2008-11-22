@@ -15,6 +15,7 @@ BuildRequires:	QtCore-devel >= %{qtver}
 BuildRequires:	QtDBus-devel >= %{qtver}
 BuildRequires:	QtGui-devel >= %{qtver}
 BuildRequires:	cmake >= 2.6.1-2
+BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.129
 BuildRequires:	qt4-build >= %{qtver}
 BuildRequires:	qt4-qmake >= %{qtver}
